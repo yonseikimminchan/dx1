@@ -1,0 +1,37 @@
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.ensemble import RandomForestClassifier
+from sklearn import svm
+from sklearn.linear_model import SGDClassifier, LogisticRegression
+from sklearn.metrics import accuracy_score
+from sklearn.datasets import make_classification
+from sklearn.model_selection import train_test_split
+
+# 예제 데이터를 생성합니다.
+X, y = make_classification(n_samples=1000, n_features=20, n_classes=2, random_state=32)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=32)
+
+# 5가지 모델을 생성합니다.
+decision_tree = DecisionTreeClassifier(random_state=32)
+random_forest = RandomForestClassifier(random_state=32)
+svm_model = svm.SVC()
+sgd_model = SGDClassifier(random_state=32)
+logistic_model = LogisticRegression(random_state=32)
+
+# 모델을 리스트로 저장합니다.
+model_list = [decision_tree, random_forest, svm_model, sgd_model, logistic_model]
+
+# 각 모델을 훈련 데이터로 학습합니다.
+for model in model_list:
+    model.fit(X_train, y_train)
+
+# 각 모델의 예측 결과를 저장할 리스트를 생성합니다.
+y_pred_list = []
+for model in model_list:
+    y_pred = model.predict(X_test)
+    y_pred_list.append(y_pred
+
+# 정확도를 저장할 리스트를 생성합니다.
+acc_list = [accuracy_score(y_test, y_pred) for y_pred in y_pred_list]
+
+# 정확도를 출력합니다.
+print(acc_list)
